@@ -14,5 +14,21 @@
 
 Клонируйте репозиторий проекта из GitHub:
 ```bash
-git clone 
+git clone https://github.com/livevasiliy/eco-finance-test-case.git
+```
+
+Запустите Docker контейнеры
+```bash
+docker compose up [-d] Укажите флаг -d если хотите запусть в фоне
+```
+
+Зайдите внутрь контейнера
+```bash
+docker compose exec web bash
+```
+
+Внутри контейнера вызовите следующие команды:
+```bash
+cp .env.example .env
+bin/migrations migrations:migrate
 ```
