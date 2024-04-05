@@ -2,28 +2,28 @@
 
 namespace Livevasiliy\EcoFinanceTestCase\Services;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Livevasiliy\EcoFinanceTestCase\Entity\Reading;
 use Livevasiliy\EcoFinanceTestCase\Entity\Sensor;
-use Livevasiliy\EcoFinanceTestCase\Provider\EntityManagerProvider;
-
 
 class SensorService extends BaseService
 {
-    public function push(array $data)
+    private const MIN_TEMPERATURE_RANGE_VALUE = -1000;
+    private const MAX_TEMPERATURE_RANGE_VALUE = 8000;
+    private const COEFFICIENT                 = 100;
+
+    public function push(array $data): void
     {
         $reader = new Reading();
 
         /** @var Sensor|null $sensor */
         $sensor = $this->entityManager->getRepository(Sensor::class)->findOneBy(['uuid' => $data['reading']['sensor_uuid']]);
 
-        if (!$sensor) {
+        if ( ! $sensor) {
             throw new \Exception('Model not found');
         }
 
         $reader->setSensor($sensor);
-        $reader->setTemperature((float)$data['reading']['temperature']);
+        $reader->setTemperature((float) $data['reading']['temperature']);
 
         $this->entityManager->persist($reader);
         $this->entityManager->flush();
@@ -34,11 +34,11 @@ class SensorService extends BaseService
         /** @var Sensor|null $sensor */
         $sensor = $this->entityManager->getRepository(Sensor::class)->findOneBy(['uuid' => $id]);
 
-        if (!$sensor) {
+        if ( ! $sensor) {
             throw new \Exception('Model not found');
         }
 
-        $temperature = mt_rand(-1000, 8000) / 100;
+        $temperature      = mt_rand(self::MIN_TEMPERATURE_RANGE_VALUE, self::MAX_TEMPERATURE_RANGE_VALUE) / self::COEFFICIENT;
         $currentReadingId = $sensor->getReadingId();
 
         $newReadingId = $currentReadingId + 1;

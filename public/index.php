@@ -2,11 +2,7 @@
 
 require_once __DIR__ . '/../bootstrap/bootstrap.php';
 
-use Livevasiliy\EcoFinanceTestCase\Kernel\Router;
-use Symfony\Component\HttpFoundation\Request;
+use Livevasiliy\EcoFinanceTestCase\Kernel\App;
 
-$request = Request::createFromGlobals();
-
-$router = new Router();
-$response = $router->handleRequest($request);
-$response->send();
+// Run the application
+App::run();

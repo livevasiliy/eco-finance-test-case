@@ -2,6 +2,7 @@
 
 namespace Livevasiliy\EcoFinanceTestCase\Services;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Livevasiliy\EcoFinanceTestCase\Provider\EntityManagerProvider;
 
@@ -14,23 +15,15 @@ class BaseService
         $this->entityManager = EntityManagerProvider::getEntityManager();
     }
 
-    /**
-     * @return \Doctrine\ORM\EntityManager|EntityManagerInterface
-     */
-    public function getEntityManager(): \Doctrine\ORM\EntityManager|EntityManagerInterface
+    public function getEntityManager(): EntityManager|EntityManagerInterface
     {
         return $this->entityManager;
     }
 
-    /**
-     * @param \Doctrine\ORM\EntityManager|EntityManagerInterface $entityManager
-     *
-     * @return BaseService
-     */
-    public function setEntityManager(\Doctrine\ORM\EntityManager|EntityManagerInterface $entityManager): BaseService
+    public function setEntityManager(EntityManager|EntityManagerInterface $entityManager): BaseService
     {
         $this->entityManager = $entityManager;
 
         return $this;
-}
+    }
 }
