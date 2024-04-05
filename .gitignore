@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+.env
+.docker-compose.override.*
+vendor/
+node_modules/
