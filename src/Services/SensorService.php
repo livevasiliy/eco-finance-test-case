@@ -16,7 +16,9 @@ class SensorService extends BaseService
         $reader = new Reading();
 
         /** @var Sensor|null $sensor */
-        $sensor = $this->entityManager->getRepository(Sensor::class)->findOneBy(['uuid' => $data['reading']['sensor_uuid']]);
+        $sensor = $this->entityManager
+            ->getRepository(Sensor::class)
+            ->findOneBy(['uuid' => $data['reading']['sensor_uuid']]);
 
         if ( ! $sensor) {
             throw new \Exception('Model not found');

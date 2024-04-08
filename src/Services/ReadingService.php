@@ -11,7 +11,7 @@ class ReadingService extends BaseService
         $startDate = date('Y-m-d', strtotime("-$days days"));
 
         /** @var Reading[] $readings */
-        $readings     = $this->entityManager->getRepository(Reading::class)->findAll();
+        $readings     = $this->getEntityManager()->getRepository(Reading::class)->findAll();
         $temperatures = [];
 
         if (count($readings) > 0) {

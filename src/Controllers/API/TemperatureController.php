@@ -33,4 +33,20 @@ class TemperatureController
         // Return average temperature as JSON response
         return new JsonResponse(['average_temperature' => $averageTemperature], Response::HTTP_OK);
     }
+
+    public function calculateAverageTemperatureForHour(Request $request, string $sensorUuid): JsonResponse
+    {
+        $requestData = json_decode($request->getContent(), true);
+        $hour = $requestData['hour'] ?? null;
+
+        if (is_null($hour)) {
+            return new JsonResponse([
+                'error' => 'Invalid hour pass'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $averageTemperature = $this->readingService->calculateAvgTemperatureForHour($sensorUuid, $hour);
+
+        return new JsonResponse(['average_temperature' => $averageTemperature], Response::HTTP_OK);
+    }
 }

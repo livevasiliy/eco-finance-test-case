@@ -24,19 +24,11 @@ class Sensor
     #[ORM\OneToMany(targetEntity: Reading::class, mappedBy: 'sensor')]
     private Collection $readings;
 
-    /**
-     * @return ArrayCollection<int, Reading>
-     */
-    public function getReadings(): ArrayCollection
+    public function getReadings()
     {
         return $this->readings;
     }
 
-    /**
-     * @param ArrayCollection<int, Reading> $readings
-     *
-     * @return Sensor
-     */
     public function setReadings(ArrayCollection $readings): Sensor
     {
         $this->readings = $readings;
